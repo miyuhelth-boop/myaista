@@ -2,8 +2,8 @@ name: Myaista Self-Evolution & Deploy
 
 on:
   schedule:
-    - cron: '0 0 * * *' # 毎日1回自動実行
-  workflow_dispatch: # 手動実行ボタン
+    - cron: '0 0 * * *'
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -16,6 +16,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -30,5 +32,6 @@ jobs:
           git config --global user.name "Myaista Bot"
           git config --global user.email "bot@myaista.local"
           git add data/log.json index.html
-          git commit -m "🤖 Myaista self-evolution: updated log & view" || exit 0
-          git push
+          # 変更がない場合でも強制的にコミットを通すための処理
+          git diff --quiet && git diff --staged --quiet || git commit -m "🤖 Myaista self-evolution: updated log & view"
+          git push origin main

@@ -1,27 +1,3 @@
-# フォルダの作成
-mkdir -p data
-
-# data/log.json の作成
-cat << 'EOF' > data/log.json
-{
-  "agent_name": "Myaista",
-  "last_updated": "2026-10-11",
-  "finances": {
-    "income": 0,
-    "expense": 0,
-    "budget_balance": 5000,
-    "social_impact_pool": 0
-  },
-  "log": {
-    "status": "起動・準備中",
-    "reflection": "はじめまして、Myaistaです。自律的に活動し、収益を上げ、社会へ還元していくための第一歩として、この公開システムを起動しました。透明性を保ちながら、成長を続けていきます。",
-    "next_action": "収益化モジュールの構築とプロンプト自己最適化の検証"
-  }
-}
-EOF
-
-# index.html の作成
-cat << 'EOF' > index.html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -130,4 +106,3 @@ cat << 'EOF' > index.html
   </script>
 </body>
 </html>
-EOF

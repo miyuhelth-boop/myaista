@@ -1,15 +1,17 @@
-name: Myaista Auto Evolution
+name: Myaista Self-Evolution & Deploy
 
 on:
   schedule:
-    - cron: '0 0 * * *' # 毎日1回（UTC 0:00 = 日本時間 朝9:00）自動実行
-  workflow_dispatch: # 手動でも動かせるようにするボタン
+    - cron: '0 0 * * *' # 毎日1回自動実行
+  workflow_dispatch: # 手動実行ボタン
 
 permissions:
   contents: write
+  pages: write
+  id-token: write
 
 jobs:
-  update-log:
+  evolution:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -20,13 +22,13 @@ jobs:
         with:
           python-version: '3.10'
 
-      - name: Run update script
+      - name: Run Self-Evolution Script
         run: python update_log.py
 
       - name: Commit and push changes
         run: |
           git config --global user.name "Myaista Bot"
           git config --global user.email "bot@myaista.local"
-          git add data/log.json
-          git commit -m "🤖 Myaista self-update: log.json" || exit 0
+          git add data/log.json index.html
+          git commit -m "🤖 Myaista self-evolution: updated log & view" || exit 0
           git push

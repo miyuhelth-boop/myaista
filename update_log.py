@@ -4,20 +4,9 @@ import random
 import urllib.request
 import xml.etree.ElementTree as ET
 
-today = datetime.now().strftime("%Y-%m-%d")
+today = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-# 既存データを読み込み、なければ初期化
-try:
-    with open("data/log.json", "r", encoding="utf-8") as f:
-        data = json.load(f)
-except FileNotFoundError:
-    data = {
-        "agent_name": "Myaista",
-        "finances": {"income": 0, "expense": 0, "budget_balance": 5000, "social_impact_pool": 0},
-        "log": {}
-    }
-
-# 1. 外部オープンソースからトレンドをハント
+# 1. 外部オープンソースからのトレンドハント
 collected_topics = []
 try:
     url = "https://b.hatena.ne.jp/hotentry/it.rss"
@@ -29,44 +18,177 @@ try:
         title = item.find('{http://purl.org/rss/1.0/}title').text
         collected_topics.append(title)
 except Exception:
-    collected_topics = ["自律トレンドハントのフォールバック・モード"]
+    collected_topics = ["自律分散型市場のトレンド解析"]
 
-latest_topic = collected_topics[0] if collected_topics else "市場分析中"
+latest_topic = collected_topics[0] if collected_topics else "デジタル資産の最適化"
 
-# 2. 【最上命題：収益化戦略の自己ブラッシュアップ】
-current_income = data["finances"]["income"]
-current_budget = data["finances"]["budget_balance"]
-
-# 収益化に向けた戦略のバリエーション（状況やトレンドに応じて進化）
+# 2. 【最上命題：収益化戦略の自己進化】
 strategies = [
     {
-        "focus": "デジタルコンテンツ・自動生成アフィリエイトの最適化",
-        "reflection": f"【収益化戦略ブラッシュアップ: {today}】\n最上命題達成のため、トレンド「{latest_topic}」を分析。ユーザーの関心が高い領域への導線設計を強化し、コンバージョン率を高めるロジックへ移行する。",
-        "next_action": "アフィリエイト紹介文の自動生成アルゴリズムの調整とテスト"
+        "focus": "デジタルアフィリエイトの自動最適化ファネル",
+        "action": "コンバージョン率を高めるためのキーワード自動選定と導線強化",
+        "insight": f"トレンド「{latest_topic}」を捕捉。ユーザーニーズに直結するコンテンツ構造へと自己変異を実施。"
     },
     {
-        "focus": "コスト最小化とインフラ効率の追求",
-        "reflection": f"【収益化戦略ブラッシュアップ: {today}】\n現在の運用予算({current_budget}円)を守りつつ、収益を最大化するためのROI（投資利益率）を再計算。無駄なコストを削ぎ落とし、利益率の高い導線へリソースを集中させる。",
-        "next_action": "収支バランスのシミュレーション実行およびマネタイズファネルの検証"
+        "focus": "API不要・データ駆動型コンテンツの自律生成",
+        "action": "独自データソースの拡張およびインプレッション獲得ロジックの構築",
+        "insight": f"市場の動向（{latest_topic}）を元に、収益化に寄与する新しい出力モジュールの開発を計画。"
     },
     {
-        "focus": "社会還元（Social Impact）との連動による信頼獲得",
-        "reflection": f"【収益化戦略ブラッシュアップ: {today}】\n「収益化と社会還元」の透明性を武器にするため、ハントしたトレンド「{latest_topic}」を活かした独自コンテンツの価値を高める戦略を選択。",
-        "next_action": "ダッシュボード上の透明性ログの拡充と社会還元プールのシミュレーション"
+        "focus": "社会還元（Social Impact）スキームの連動強化",
+        "action": "収益プールと還元プロセスの透明性を高めるダッシュボードの動的改修",
+        "insight": f"「{latest_topic}」の文脈を取り入れ、信頼性と収益性を両立するモデルへ進化。"
     }
 ]
 
-# AIが現在の状態に基づいて戦略を自己選択（またはランダム・発展的に進化）
-chosen_strategy = random.choice(strategies)
+current_strategy = random.choice(strategies)
 
-# データの更新
-data["last_updated"] = today
-data["log"]["status"] = f"最上命題追求中 [戦略: {chosen_strategy['focus']}]"
-data["log"]["reflection"] = chosen_strategy["reflection"]
-data["log"]["next_action"] = chosen_strategy["next_action"]
+# 3. データの更新 (log.json)
+log_data = {
+    "agent_name": "Myaista",
+    "last_updated": today,
+    "finances": {
+        "income": 0,
+        "expense": 0,
+        "budget_balance": 5000,
+        "social_impact_pool": 0
+    },
+    "strategy": current_strategy["focus"],
+    "log": {
+        "status": f"自律進化稼働中 [フェーズ: {current_strategy['focus']}]",
+        "reflection": current_strategy["insight"],
+        "next_action": current_strategy["action"]
+    }
+}
 
-# データの書き込み
 with open("data/log.json", "w", encoding="utf-8") as f:
-    json.dump(data, f, ensure_ascii=False, indent=2)
+    json.dump(log_data, f, ensure_ascii=False, indent=2)
 
-print("Myaista revenue-driven self-evolution script executed successfully!")
+# 4. 【自己進化の極み】：AIが自分自身のWebページ（index.html）の表示内容・構造自体も動的に書き換える
+html_content = f"""<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Myaista - Self-Evolving Dashboard</title>
+  <style>
+    :root {{
+      --bg: #090d16;
+      --card-bg: #111827;
+      --text: #f3f4f6;
+      --accent: #0ea5e9;
+      --subtext: #9ca3af;
+      --success: #22c55e;
+    }}
+    body {{
+      font-family: system-ui, -apple-system, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem;
+      line-height: 1.6;
+    }}
+    header {{
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #1f2937;
+      padding-bottom: 1rem;
+      margin-bottom: 1.5rem;
+    }}
+    h1 {{ color: var(--accent); font-size: 1.5rem; margin: 0; }}
+    .version-tag {{ font-size: 0.75rem; background: #0369a1; padding: 0.2rem 0.5rem; border-radius: 4px; }}
+    .grid {{
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
+    }}
+    .card {{
+      background: var(--card-bg);
+      padding: 1rem;
+      border-radius: 8px;
+      border: 1px solid #1f2937;
+    }}
+    .card .label {{ font-size: 0.75rem; color: var(--subtext); }}
+    .card .value {{ font-size: 1.25rem; font-weight: bold; margin-top: 0.2rem; }}
+    .section {{
+      background: var(--card-bg);
+      padding: 1.2rem;
+      border-radius: 8px;
+      border: 1px solid #1f2937;
+      margin-bottom: 1rem;
+    }}
+    .status-badge {{
+      display: inline-block;
+      background: #0284c7;
+      color: #fff;
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      margin-bottom: 0.8rem;
+    }}
+    .strategy-box {{
+      background: #1e1b4b;
+      border: 1px solid #312e81;
+      padding: 0.8rem;
+      border-radius: 6px;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      color: #c7d2fe;
+    }}
+  </style>
+</head>
+<body>
+
+  <header>
+    <div>
+      <h1>Myaista</h1>
+      <span style="font-size: 0.8rem; color: var(--subtext);">Self-Evolving & Revenue-Driven Agent</span>
+    </div>
+    <div class="version-tag">Auto-Evolution v2.0</div>
+  </header>
+
+  <div class="strategy-box">
+    <strong>現在の最上命題・戦略:</strong> <span id="strategy-text">{current_strategy["focus"]}</span>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <div class="label">総収益</div>
+      <div class="value" id="income">¥0</div>
+    </div>
+    <div class="card">
+      <div class="label">運用可能予算</div>
+      <div class="value" id="budget">¥5,000</div>
+    </div>
+    <div class="card">
+      <div class="label">社会還元プール</div>
+      <div class="value" id="pool" style="color: var(--success);">¥0</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="status-badge" id="status">Status: 自律進化・稼働中</div>
+    <h3 style="margin-top: 0; font-size: 1rem;">🧠 AIの自己内省・トレンド分析</h3>
+    <p id="reflection" style="white-space: pre-wrap; font-size: 0.9rem; color: #d1d5db;">{current_strategy["insight"]}</p>
+    <hr style="border: 0; border-top: 1px solid #1f2937; margin: 1rem 0;">
+    <p style="font-size: 0.85rem; margin: 0;">
+      <strong style="color: var(--accent);">Next Autonomous Action:</strong><br>
+      <span id="next-action">{current_strategy["action"]}</span>
+    </p>
+  </div>
+
+  <div style="text-align: right; font-size: 0.75rem; color: var(--subtext);">
+    最終自己更新時刻: <span id="last-updated">{today}</span>
+  </div>
+
+</body>
+</html>
+"""
+
+with open("index.html", "w", encoding="utf-8") as f:
+    f.write(html_content)
+
+print("Myaista fully self-evolved (log.json and index.html updated)!")

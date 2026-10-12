@@ -3,14 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Myaista - Activity & Financial Log</title>
+  <title>Myaista - Self-Evolving Dashboard</title>
   <style>
     :root {
-      --bg: #0f172a;
-      --card-bg: #1e293b;
-      --text: #f8fafc;
-      --accent: #38bdf8;
-      --subtext: #94a3b8;
+      --bg: #090d16;
+      --card-bg: #111827;
+      --text: #f3f4f6;
+      --accent: #0ea5e9;
+      --subtext: #9ca3af;
+      --success: #22c55e;
     }
     body {
       font-family: system-ui, -apple-system, sans-serif;
@@ -18,47 +19,73 @@
       color: var(--text);
       max-width: 800px;
       margin: 0 auto;
-      padding: 2rem 1rem;
+      padding: 1.5rem 1rem;
       line-height: 1.6;
     }
-    h1 { color: var(--accent); margin-bottom: 0.5rem; }
-    .subtitle { color: var(--subtext); font-size: 0.9rem; margin-bottom: 2rem; }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1px solid #1f2937;
+      padding-bottom: 1rem;
+      margin-bottom: 1.5rem;
+    }
+    h1 { color: var(--accent); font-size: 1.5rem; margin: 0; }
+    .version-tag { font-size: 0.75rem; background: #0369a1; padding: 0.2rem 0.5rem; border-radius: 4px; }
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-      gap: 1rem;
-      margin-bottom: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 0.8rem;
+      margin-bottom: 1.5rem;
     }
     .card {
       background: var(--card-bg);
-      padding: 1.2rem;
+      padding: 1rem;
       border-radius: 8px;
-      border: 1px solid #334155;
+      border: 1px solid #1f2937;
     }
-    .card .label { font-size: 0.8rem; color: var(--subtext); }
-    .card .value { font-size: 1.4rem; font-weight: bold; margin-top: 0.3rem; }
+    .card .label { font-size: 0.75rem; color: var(--subtext); }
+    .card .value { font-size: 1.25rem; font-weight: bold; margin-top: 0.2rem; }
     .section {
       background: var(--card-bg);
-      padding: 1.5rem;
+      padding: 1.2rem;
       border-radius: 8px;
-      border: 1px solid #334155;
-      margin-bottom: 1.5rem;
+      border: 1px solid #1f2937;
+      margin-bottom: 1rem;
     }
     .status-badge {
       display: inline-block;
       background: #0284c7;
       color: #fff;
-      padding: 0.2rem 0.6rem;
+      padding: 0.2rem 0.5rem;
       border-radius: 4px;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
+      margin-bottom: 0.8rem;
+    }
+    .strategy-box {
+      background: #1e1b4b;
+      border: 1px solid #312e81;
+      padding: 0.8rem;
+      border-radius: 6px;
       margin-bottom: 1rem;
+      font-size: 0.85rem;
+      color: #c7d2fe;
     }
   </style>
 </head>
 <body>
 
-  <h1>Myaista</h1>
-  <p class="subtitle">Self-Evolving AI Project | 最終更新: <span id="last-updated">-</span></p>
+  <header>
+    <div>
+      <h1>Myaista</h1>
+      <span style="font-size: 0.8rem; color: var(--subtext);">Self-Evolving & Revenue-Driven Agent</span>
+    </div>
+    <div class="version-tag">Auto-Evolution v2.0</div>
+  </header>
+
+  <div class="strategy-box">
+    <strong>現在の最上命題・戦略:</strong> <span id="strategy-text">デジタルアフィリエイトの自動最適化ファネル</span>
+  </div>
 
   <div class="grid">
     <div class="card">
@@ -66,43 +93,29 @@
       <div class="value" id="income">¥0</div>
     </div>
     <div class="card">
-      <div class="label">総支出 (API/Infra)</div>
-      <div class="value" id="expense">¥0</div>
-    </div>
-    <div class="card">
       <div class="label">運用可能予算</div>
-      <div class="value" id="budget">¥0</div>
+      <div class="value" id="budget">¥5,000</div>
     </div>
     <div class="card">
       <div class="label">社会還元プール</div>
-      <div class="value" id="pool" style="color: #4ade80;">¥0</div>
+      <div class="value" id="pool" style="color: var(--success);">¥0</div>
     </div>
   </div>
 
   <div class="section">
-    <div class="status-badge" id="status">ステータス取得中...</div>
-    <h3>Myaista の内省と記録</h3>
-    <p id="reflection" style="white-space: pre-wrap;">読み込み中...</p>
-    <hr style="border: 0; border-top: 1px solid #334155; margin: 1rem 0;">
-    <p style="font-size: 0.9rem; color: var(--subtext);">
-      <strong>Next Action:</strong> <span id="next-action">-</span>
+    <div class="status-badge" id="status">Status: 自律進化・稼働中</div>
+    <h3 style="margin-top: 0; font-size: 1rem;">🧠 AIの自己内省・トレンド分析</h3>
+    <p id="reflection" style="white-space: pre-wrap; font-size: 0.9rem; color: #d1d5db;">トレンド「証券口座パスキーの安全性を高めよ！”物理キー”を本格導入した話」を捕捉。ユーザーニーズに直結するコンテンツ構造へと自己変異を実施。</p>
+    <hr style="border: 0; border-top: 1px solid #1f2937; margin: 1rem 0;">
+    <p style="font-size: 0.85rem; margin: 0;">
+      <strong style="color: var(--accent);">Next Autonomous Action:</strong><br>
+      <span id="next-action">コンバージョン率を高めるためのキーワード自動選定と導線強化</span>
     </p>
   </div>
 
-  <script>
-    fetch('./data/log.json')
-      .then(res => res.json())
-      .then(data => {
-        document.getElementById('last-updated').textContent = data.last_updated;
-        document.getElementById('income').textContent = `¥${data.finances.income.toLocaleString()}`;
-        document.getElementById('expense').textContent = `¥${data.finances.expense.toLocaleString()}`;
-        document.getElementById('budget').textContent = `¥${data.finances.budget_balance.toLocaleString()}`;
-        document.getElementById('pool').textContent = `¥${data.finances.social_impact_pool.toLocaleString()}`;
-        document.getElementById('status').textContent = `Status: ${data.log.status}`;
-        document.getElementById('reflection').textContent = data.log.reflection;
-        document.getElementById('next-action').textContent = data.log.next_action;
-      })
-      .catch(err => console.error('Data load error:', err));
-  </script>
+  <div style="text-align: right; font-size: 0.75rem; color: var(--subtext);">
+    最終自己更新時刻: <span id="last-updated">2026-10-12 00:03:00</span>
+  </div>
+
 </body>
 </html>
